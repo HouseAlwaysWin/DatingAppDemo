@@ -36,6 +36,7 @@ namespace DatingApp.API {
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
             services.AddCors ();
+            services.Configure<CloudinarySettings> (Configuration.GetSection ("CloudinarySettings"));
             services.AddAutoMapper (typeof (DatingRepository).Assembly);
             services.AddScoped<IAuthRepository, AuthRepository> ();
             services.AddScoped<IDatingRepository, DatingRepository> ();
@@ -74,8 +75,10 @@ namespace DatingApp.API {
             app.UseRouting ();
 
             app.UseAuthentication ();
-            app.UseAuthorization ();
+
             app.UseCors (x => x.AllowAnyOrigin ().AllowAnyMethod ().AllowAnyHeader ());
+
+            app.UseAuthorization ();
 
             app.UseEndpoints (endpoints => {
                 endpoints.MapControllers ();
