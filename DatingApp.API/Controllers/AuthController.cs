@@ -23,11 +23,9 @@ namespace DatingApp.API.Controllers {
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
-        private readonly IAuthRepository _repo;
 
-        public AuthController (IAuthRepository repo, IConfiguration config, IMapper mapper,
+        public AuthController (IConfiguration config, IMapper mapper,
             UserManager<User> userManager, SignInManager<User> signInManager) {
-            _repo = repo;
             _config = config;
             _mapper = mapper;
             _userManager = userManager;
@@ -69,7 +67,7 @@ namespace DatingApp.API.Controllers {
                 var appUser = _mapper.Map<UserForListDto> (user);
 
                 return Ok (new {
-                    token = GenerateJwtToken (user), user = appUser
+                    token = GenerateJwtToken (user).Result, user = appUser
                 });
             }
 
