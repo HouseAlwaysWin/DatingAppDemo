@@ -1,16 +1,21 @@
+import { AdminService } from './_services/admin.service';
+import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BsDropdownModule, } from 'ngx-bootstrap/dropdown';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { FileUploadModule } from 'ng2-file-upload';
 import { TimeagoModule } from 'ngx-timeago';
+import { HasRoleDirective } from './_directive/hasRole.directive';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -39,6 +44,7 @@ import { ListsResolver } from './_resolvers/list.resolver';
 import { MessageResolver } from './_resolvers/message.resolver';
 import { MemberMessageComponent } from './members/member-message/member-message.component';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { RolesModalComponent } from './admin/roles-modal/roles-modal.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -60,6 +66,10 @@ export function tokenGetter() {
     MemberMessageComponent,
     PhotoEditorComponent,
     AdminPanelComponent,
+    HasRoleDirective,
+    UserManagementComponent,
+    PhotoManagementComponent,
+    RolesModalComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +85,7 @@ export function tokenGetter() {
     RouterModule.forRoot(appRoutes),
     PaginationModule.forRoot(),
     ButtonsModule,
+    ModalModule.forRoot(),
     TimeagoModule.forRoot(),
     JwtModule.forRoot({
       config: {
@@ -95,7 +106,11 @@ export function tokenGetter() {
     MemberEditResolver,
     ListsResolver,
     PreventUnsavedChanges,
-    MessageResolver
+    MessageResolver,
+    AdminService
+  ],
+  entryComponents: [
+    RolesModalComponent
   ],
   bootstrap: [
     AppComponent

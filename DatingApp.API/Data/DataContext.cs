@@ -21,6 +21,11 @@ namespace DatingApp.API.Data {
                     .WithMany (r => r.UserRoles)
                     .HasForeignKey (ur => ur.RoleId)
                     .IsRequired ();
+
+                UserRole.HasOne (ur => ur.User)
+                    .WithMany (u => u.UserRoles)
+                    .HasForeignKey (ur => ur.UserId)
+                    .IsRequired ();
             });
 
             builder.Entity<Like> ()
