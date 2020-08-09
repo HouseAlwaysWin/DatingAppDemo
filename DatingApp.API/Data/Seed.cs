@@ -16,7 +16,7 @@ namespace DatingApp.API.Data {
                 var roles = new List<Role> {
                     new Role { Name = "Member" },
                     new Role { Name = "Admin" },
-                    new Role { Name = "Moderatore" },
+                    new Role { Name = "Moderator" },
                     new Role { Name = "VIP" },
                 };
 
@@ -45,7 +45,7 @@ namespace DatingApp.API.Data {
 
                 if (result.Succeeded) {
                     var admin = userManager.FindByNameAsync ("Admin").Result;
-                    userManager.AddToRolesAsync (admin, new [] { "Admin", "Moderatore" }).Wait ();
+                    userManager.AddToRolesAsync (admin, new [] { "Admin", "Moderator" }).Wait ();
                 }
 
             }

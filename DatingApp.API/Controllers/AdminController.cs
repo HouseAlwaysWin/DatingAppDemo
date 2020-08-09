@@ -60,7 +60,7 @@ namespace DatingApp.API.Controllers {
             return Ok (await _userManager.GetRolesAsync (user));
         }
 
-        [Authorize (Policy = "ModeratePhotoRole")]
+        [Authorize (Policy = "ModeratorPhotoRole")]
         [HttpGet ("photosForModeration")]
         public IActionResult GetPhotosForModeration () {
             return Ok ("Admins or moderators can see this");
